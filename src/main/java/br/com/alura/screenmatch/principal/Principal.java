@@ -57,7 +57,7 @@ public class Principal {
     }
 
     private void voltarAoMenu() {
-        System.out.println("Aperte qualquer tecla para voltar ao menu!");
+        System.out.print("\nAperte qualquer tecla para voltar ao menu: ");
         leitura.nextLine();
         exibeMenu();
     }
@@ -67,12 +67,15 @@ public class Principal {
         for(DadosSerie s : listaDeSeries){
             System.out.println(s.titulo());
         }
+        System.out.println(" ");
+        voltarAoMenu();
     }
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
         System.out.println(dados);
         listaDeSeries.add(dados);
+        voltarAoMenu();
     }
 
     private DadosSerie getDadosSerie() {
@@ -93,6 +96,7 @@ public class Principal {
             temporadas.add(dadosTemporada);
         }
         temporadas.forEach(System.out::println);
+        voltarAoMenu();
     }
 
 
