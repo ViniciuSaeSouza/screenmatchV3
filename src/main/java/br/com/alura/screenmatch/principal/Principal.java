@@ -18,39 +18,61 @@ public class Principal {
     private Scanner leitura = new Scanner(System.in);
     private ConsumoApi consumo = new ConsumoApi();
     private ConverteDados conversor = new ConverteDados();
+    private List<DadosSerie> listaDeSeries = new ArrayList<>();
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
-    private final String API_KEY = "&apikey=6585022c";
+    private final String API_KEY = "&apikey=da948075";
 
     public void exibeMenu() {
         var menu = """
                 1 - Buscar séries
                 2 - Buscar episódios
+                3 - Listar séries pesquisadas
+                0 - Sair
                 
-                0 - Sair                                 
-                """;
+                Escolha: """;
 
-        System.out.println(menu);
-        var opcao = leitura.nextInt();
+        int opcao = -1;
+
+        while (!(opcao == 0)) {
+            System.out.println(menu);
+            opcao = leitura.nextInt();
+            leitura.nextLine();
+            switch (opcao) {
+                case 1:
+                    buscarSerieWeb();
+                    break;
+                case 2:
+                    buscarEpisodioPorSerie();
+                    break;
+                case 3:
+                    listarSeriesPesquisadas();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        }
+    }
+
+    private void voltarAoMenu() {
+        System.out.println("Aperte qualquer tecla para voltar ao menu!");
         leitura.nextLine();
+        exibeMenu();
+    }
 
-        switch (opcao) {
-            case 1:
-                buscarSerieWeb();
-                break;
-            case 2:
-                buscarEpisodioPorSerie();
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida");
+    private void listarSeriesPesquisadas() {
+        System.out.println("-- Séries pesquisadas --");
+        for(DadosSerie s : listaDeSeries){
+            System.out.println(s.titulo());
         }
     }
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
         System.out.println(dados);
+        listaDeSeries.add(dados);
     }
 
     private DadosSerie getDadosSerie() {
@@ -61,7 +83,7 @@ public class Principal {
         return dados;
     }
 
-    private void buscarEpisodioPorSerie(){
+    private void buscarEpisodioPorSerie() {
         DadosSerie dadosSerie = getDadosSerie();
         List<DadosTemporada> temporadas = new ArrayList<>();
 
@@ -72,4 +94,6 @@ public class Principal {
         }
         temporadas.forEach(System.out::println);
     }
+
+
 }
