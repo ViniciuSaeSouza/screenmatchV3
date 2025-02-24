@@ -1,8 +1,9 @@
 package br.com.alura.desafios.aula1;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import br.com.alura.screenmatch.principal.Mes;
+import com.theokanning.openai.finetune.FineTuneEvent;
+
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -35,7 +36,9 @@ public class Main {
         List<String> emails = Arrays.asList("TESTE@EXEMPLO.COM", "exemplo@Java.com ", "Usuario@teste.Com");
         System.out.println(desafio5(emails)); // Saída: ["teste@exemplo.com", "exemplo@java.com", "usuario@teste.com"]
 
-
+        //6 - Crie um enum Mes que represente os meses do ano.
+        // Adicione um método que retorna o número de dias de cada mês, considerando anos não bissextos.
+        System.out.println(desafio6());
     }
 
     public static List<Integer> desafio1() {
@@ -82,5 +85,21 @@ public class Main {
         return emails.stream()
                 .map(email -> email.trim().toLowerCase())
                 .toList();
+    }
+
+    public static List<Integer> desafio6() {
+        var listaDias = new ArrayList<Integer>();
+        for (int i = 1; i <= Mes.values().length; i++) {
+            if (i % 2 == 0 && i != 2) {
+                listaDias.add(30);
+            }
+            else if (i == 2) {
+                listaDias.add(28);
+            }
+            else {
+                listaDias.add(31);
+            }
+        }
+        return listaDias;
     }
 }
