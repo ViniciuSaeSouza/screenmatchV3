@@ -33,7 +33,7 @@ public class Main {
         //5 - Implemente um método que recebe uma lista de e-mails (String)
         // e retorna uma nova lista onde cada e-mail está convertido para letras minúsculas.
         List<String> emails = Arrays.asList("TESTE@EXEMPLO.COM", "exemplo@Java.com ", "Usuario@teste.Com");
-        System.out.println(normalizeEmails(emails)); // Saída: ["teste@exemplo.com", "exemplo@java.com", "usuario@teste.com"]
+        System.out.println(desafio5(emails)); // Saída: ["teste@exemplo.com", "exemplo@java.com", "usuario@teste.com"]
 
 
     }
@@ -78,4 +78,9 @@ public class Main {
         return frase.equalsIgnoreCase(fraseInvertida);
     }
 
+    public static List<String> desafio5(List<String> emails) {
+        return emails.stream()
+                .map(email -> email.trim().toLowerCase())
+                .toList();
+    }
 }
