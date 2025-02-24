@@ -1,6 +1,6 @@
 package br.com.alura.screenmatch.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import br.com.alura.screenmatch.service.traducao.ConsultaMyMemoryAPI;
 
 import java.util.OptionalDouble;
 
@@ -20,6 +20,76 @@ public class Serie {
         categoria = Categoria.fromString(dadosSerie.categoria().split(",")[0].trim());
         elenco = dadosSerie.elenco();
         poster = dadosSerie.poster();
-        sinopse = dadosSerie.sinopse();
+        // TODO - Corrigir a tradução utilizando a clase ConsultaMyMemoryAPI
+        sinopse = ConsultaMyMemoryAPI.obterTraducao(dadosSerie.sinopse());
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Integer getTotalTemporadas() {
+        return totalTemporadas;
+    }
+
+    public void setTotalTemporadas(Integer totalTemporadas) {
+        this.totalTemporadas = totalTemporadas;
+    }
+
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(Double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getSinopse() {
+        return sinopse;
+    }
+
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
+    }
+
+    public String getElenco() {
+        return elenco;
+    }
+
+    public void setElenco(String elenco) {
+        this.elenco = elenco;
+    }
+
+    @Override
+    public String toString() {
+        return "Serie: " +
+                "titulo='" + titulo + '\'' +
+                ", totalTemporadas=" + totalTemporadas +
+                ", avaliacao=" + avaliacao +
+                ", categoria=" + categoria +
+                ", poster='" + poster + '\'' +
+                ", sinopse='" + sinopse + '\'' +
+                ", elenco='" + elenco + '\'' +
+                '}';
     }
 }
