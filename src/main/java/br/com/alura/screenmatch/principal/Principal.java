@@ -2,14 +2,14 @@ package br.com.alura.screenmatch.principal;
 
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
-import br.com.alura.screenmatch.model.Episodio;
 import br.com.alura.screenmatch.model.Serie;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 
 public class Principal {
 
@@ -26,7 +26,7 @@ public class Principal {
                 2 - Buscar episódios
                 3 - Listar séries pesquisadas
                 0 - Sair
-                
+                                
                 Escolha: """;
 
         int opcao = -1;
@@ -69,8 +69,8 @@ public class Principal {
 
         System.out.println("-- Séries pesquisadas --");
         series.stream()
-                    .sorted(Comparator.comparing(Serie::getCategoria))
-                    .forEach(System.out::println);
+                .sorted(Comparator.comparing(Serie::getCategoria))
+                .forEach(System.out::println);
         System.out.println(" ");
         voltarAoMenu();
     }
@@ -102,6 +102,7 @@ public class Principal {
         temporadas.forEach(System.out::println);
         voltarAoMenu();
     }
+
 
 
 }
