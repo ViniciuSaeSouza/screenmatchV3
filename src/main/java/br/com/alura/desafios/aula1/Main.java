@@ -21,9 +21,20 @@ public class Main {
 
         // 3 - 3 - Implemente um método que recebe uma String representando um nome completo separado por espaços.
         // O método deve retornar o primeiro e o último nome após remover os espaços desnecessários.
-        System.out.println(desafio3("  João Carlos Silva   ")); // Saída: "João Silva"
-        System.out.println(desafio3("Maria Fifi Da Silva Sauro  ")); // Saída: "Maria Sauro"
-        System.out.println(desafio3("  Anderson")); // Saída: "Anderson"
+//        System.out.println(desafio3("  João Carlos Silva   ")); // Saída: "João Silva"
+//        System.out.println(desafio3("Maria Fifi Da Silva Sauro  ")); // Saída: "Maria Sauro"
+//        System.out.println(desafio3("  Anderson")); // Saída: "Anderson"
+
+        // 4 - Implemente um método que verifica se uma frase é um palíndromo.
+        // Um palíndromo é uma palavra/frase que, quando lida de trás pra frente, é igual à leitura normal.
+//        System.out.println(desafio4("socorram me subi no onibus em marrocos")); // Saída: true
+//        System.out.println(desafio4("Java")); // Saída: false
+
+        //5 - Implemente um método que recebe uma lista de e-mails (String)
+        // e retorna uma nova lista onde cada e-mail está convertido para letras minúsculas.
+        List<String> emails = Arrays.asList("TESTE@EXEMPLO.COM", "exemplo@Java.com ", "Usuario@teste.Com");
+        System.out.println(normalizeEmails(emails)); // Saída: ["teste@exemplo.com", "exemplo@java.com", "usuario@teste.com"]
+
 
     }
 
@@ -60,4 +71,11 @@ public class Main {
 
         return listNome.length == 1 ? listNome[0] : listNome[0] + " " + listNome[listNome.length - 1];
     }
+
+    public static boolean desafio4(String frase) {
+        frase = frase.replace(" ", "");
+        var fraseInvertida = new StringBuilder(frase).reverse().toString();
+        return frase.equalsIgnoreCase(fraseInvertida);
+    }
+
 }
