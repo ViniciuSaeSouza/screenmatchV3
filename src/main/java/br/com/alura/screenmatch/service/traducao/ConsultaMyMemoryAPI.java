@@ -19,13 +19,14 @@ public class ConsultaMyMemoryAPI {
 
         String json = consumo.obterDados(url);
 
-        DadosTraducao traducao;
+
+        DadosResposta resposta;
         try {
-            traducao = mapper.readValue(json, DadosTraducao.class);
+            resposta = mapper.readValue(json, DadosResposta.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        // TODO - ENTENDER ONDE EU DEVO ADICIONAR ESSE MÉTODO
-        return traducao.textoTraduzido();
+
+        return resposta.dadosTraducao().textoTraduzido();
     }
 }

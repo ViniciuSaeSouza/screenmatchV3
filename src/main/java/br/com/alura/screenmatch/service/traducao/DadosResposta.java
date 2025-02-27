@@ -4,6 +4,5 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record DadosResposta(@JsonAlias("trasnlatedText") String textoTraduzido) {
-
+public record DadosResposta(@JsonAlias("responseData") DadosTraducao dadosTraducao) {
 }

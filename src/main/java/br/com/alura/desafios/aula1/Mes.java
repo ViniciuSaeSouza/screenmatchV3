@@ -1,9 +1,9 @@
-package br.com.alura.screenmatch.principal;
+package br.com.alura.desafios.aula1;
 
 public enum Mes {
     JANEIRO,
     FEVEREIRO,
-    MARÇO,
+    MARCO,
     ABRIL,
     MAIO,
     JUNHO,

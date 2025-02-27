@@ -1,8 +1,5 @@
 package br.com.alura.desafios.aula1;
 
-import br.com.alura.screenmatch.principal.Mes;
-import com.theokanning.openai.finetune.FineTuneEvent;
-
 import java.util.*;
 
 public class Main {

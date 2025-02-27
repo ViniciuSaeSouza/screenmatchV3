@@ -20,7 +20,6 @@ public class Serie {
         categoria = Categoria.fromString(dadosSerie.categoria().split(",")[0].trim());
         elenco = dadosSerie.elenco();
         poster = dadosSerie.poster();
-        // TODO - Corrigir a tradução utilizando a clase ConsultaMyMemoryAPI
         sinopse = ConsultaMyMemoryAPI.obterTraducao(dadosSerie.sinopse());
     }
 
