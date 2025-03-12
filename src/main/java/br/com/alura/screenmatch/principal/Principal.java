@@ -3,22 +3,31 @@ package br.com.alura.screenmatch.principal;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
 import br.com.alura.screenmatch.model.Serie;
+import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
+import org.springframework.core.env.Environment;
+
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
-
     private Scanner leitura = new Scanner(System.in);
     private ConsumoApi consumo = new ConsumoApi();
     private ConverteDados conversor = new ConverteDados();
-    private List<Serie> listaDeSeries = new ArrayList<>();
+    private SerieRepository serieRepository;
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
-    private final String API_KEY = "&apikey=da948075";
+    private final Environment env;
+
+    private String apiKey = System.getenv("OMDB_APIKEY");
+
+
+    public Principal(SerieRepository repository, Environment env) {
+        this.serieRepository = repository;
+        this.env = env;
+    }
 
     public void exibeMenu() {
         var menu = """
@@ -28,7 +37,6 @@ public class Principal {
                 0 - Sair
                                 
                 Escolha: """;
-
         int opcao = -1;
 
         while (!(opcao == 0)) {
@@ -61,26 +69,25 @@ public class Principal {
     }
 
     private void listarSeriesPesquisadas() {
+        var listaSeries = serieRepository.findAll();
 
         System.out.println("-- Séries pesquisadas --");
-        listaDeSeries.stream()
-                .sorted(Comparator.comparing(Serie::getCategoria))
-                .forEach(System.out::println);
-        System.out.println(" ");
+        listaSeries.stream().forEach(System.out::println);
+
         voltarAoMenu();
     }
 
     private void buscarSerieWeb() {
         Serie serie  = new Serie(getDadosSerie());
         System.out.println(serie);
-        listaDeSeries.add(serie);
+        serieRepository.save(serie);
         voltarAoMenu();
     }
 
     private DadosSerie getDadosSerie() {
         System.out.println("Digite o nome da série para busca");
         var nomeSerie = leitura.nextLine();
-        var json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") + API_KEY);
+        var json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") +"&apikey=" + apiKey);
         DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
         return dados;
     }
@@ -90,7 +97,7 @@ public class Principal {
         List<DadosTemporada> temporadas = new ArrayList<>();
 
         for (int i = 1; i <= dadosSerie.totalTemporadas(); i++) {
-            var json = consumo.obterDados(ENDERECO + dadosSerie.titulo().replace(" ", "+") + "&season=" + i + API_KEY);
+            var json = consumo.obterDados(ENDERECO + dadosSerie.titulo().replace(" ", "+") + "&season=" + i + env.getProperty("app.api.key"));
             DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
             temporadas.add(dadosTemporada);
         }
