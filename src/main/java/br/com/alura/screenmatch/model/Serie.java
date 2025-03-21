@@ -3,6 +3,8 @@ package br.com.alura.screenmatch.model;
 import br.com.alura.screenmatch.service.traducao.ConsultaMyMemoryAPI;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -22,6 +24,11 @@ public class Serie {
     private String sinopse;
     private String elenco;
 
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
+    private List<Episodio> episodios = new ArrayList<>();
+    public Serie() {
+    }
+
     public Serie(DadosSerie dadosSerie) {
         titulo = dadosSerie.titulo();
         totalTemporadas = dadosSerie.totalTemporadas();
@@ -32,7 +39,12 @@ public class Serie {
         sinopse = ConsultaMyMemoryAPI.obterTraducao(dadosSerie.sinopse());
     }
 
-    public Serie() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -89,6 +101,14 @@ public class Serie {
 
     public void setElenco(String elenco) {
         this.elenco = elenco;
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
     }
 
     @Override
